@@ -46,6 +46,15 @@ router.patch('/notification/request', async (req, res) => {
     res.json({ message: error.message });
   }
 });
+router.patch('/notification/request/:id', async (req, res) => {
+  const id = req.params.id;
+  try {
+    await UserRequest.updateMany({ manager: id }, { $set: { view: true } });
+    res.json('success');
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+});
 // @route   get /userRequest
 // @desc    Get all
 // @access  Private

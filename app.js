@@ -1,17 +1,18 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const path = require('path');
 const app = express();
+const path = require('path');
+
 // DB Config
-// const db = require('./config/keys').mongoURI;
+const db = require('./config/keys').mongoURI;
+const dotenv = require('dotenv');
+// config dot env file
+dotenv.config();
 
 app.use(express.json());
 app.use(cors());
 app.use(express.json({ type: 'application/*+json' }));
-const dotenv = require('dotenv');
-// config dot env file
-dotenv.config();
 
 // Connect to mongodb
 
@@ -35,7 +36,6 @@ app.use(express.static(path.join(__dirname, './client/build')));
 app.get('*', function (req, res) {
   res.sendFile(path.join(__dirname, './client/build/index.html'));
 });
-const PORT = 8080 || process.env.PORT;
-
-app.listen(PORT, console.log(`Server running o  ${PORT}`));
+const PORT = 5000 || process.env.PORT;
+app.listen(PORT, console.log(`Server running on  ${PORT}`));
 module.exports = app;
